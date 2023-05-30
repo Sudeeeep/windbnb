@@ -8,16 +8,16 @@ const Header = () => {
         <img src={logo} alt="windbnb logo" />
         <div className="flex items-center m-6 min-[580px]:m-0">
           <input
-            className="mr-0.5 p-1 border-2 rounded-s-lg "
+            className="mr-0.5 p-1 border-2 rounded-s-lg w-1/2"
             placeholder="Add location"
             type="text"
           />
           <input
-            className="mr-0.5 p-1 border-2"
+            className="mr-0.5 p-1 border-2 w-1/2"
             placeholder="Add guests"
             type="text"
           />
-          <button className="border-2 rounded-e-lg outline-none">
+          <button className="border-2 rounded-e-lg outline-none min-w-fit">
             <img src={searchLogo} className=" w-8 h-8  p-1" alt="search" />
           </button>
         </div>
