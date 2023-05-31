@@ -3,7 +3,7 @@ import star from "../assets/star_FILL1_wght400_GRAD0_opsz48.svg";
 
 const Stays = ({ data }) => {
   return (
-    <div className="flex flex-col sm:grid gap-16 grid-cols-2 min-[1085px]:grid-cols-3">
+    <div className="flex flex-col sm:grid gap-10 grid-cols-2 mx-5 min-[1085px]:grid-cols-3">
       {data.map((item, index) => (
         <div key={index} className="main-container flex flex-col gap-2 ">
           <div className="h-60">
