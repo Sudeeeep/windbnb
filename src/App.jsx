@@ -8,19 +8,42 @@ import "./app.css";
 
 function App() {
   const [selected, setSelected] = useState(false);
+  const [locationVisibility, setLocationVisibility] = useState(true);
+  const [guestsVisibility, setGuestsVisibility] = useState(false);
+  const [location, setLocation] = useState("");
+  const [guests, setGuests] = useState(0);
+  const [adults, setAdults] = useState(0);
+  const [children, setChildren] = useState(0);
 
   console.log(data);
 
   return (
     <>
-      <div className="container relative mx-auto w-11/12">
-        {selected && <Filter setSelected={setSelected} />}
+      <div className="container min-h-screen relative mx-auto w-11/12 pb-10">
+        {selected && (
+          <Filter
+            setSelected={setSelected}
+            locationVisibility={locationVisibility}
+            setLocationVisibility={setLocationVisibility}
+            guestsVisibility={guestsVisibility}
+            setGuestsVisibility={setGuestsVisibility}
+            location={location}
+            setLocation={setLocation}
+            guests={guests}
+            setGuests={setGuests}
+            adults={adults}
+            setAdults={setAdults}
+            children={children} //eslint-disable-line
+            setChildren={setChildren}
+          />
+        )}
         <Header setSelected={setSelected} />
-        <div className="flex justify-between mt-10 mb-5">
-          <h3 className="font-bold text-lg text-gray-800">Stays in Finland</h3>
-          <p>12+ stays</p>
-        </div>
-        <Stays data={data} />
+        <Stays
+          data={data}
+          guests={guests}
+          selected={selected}
+          location={location}
+        />
         <Footer />
       </div>
     </>

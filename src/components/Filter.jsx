@@ -1,11 +1,26 @@
 import search from "../assets/white_search_FILL1_wght400_GRAD0_opsz48.svg";
-import location from "../assets/pin_drop_FILL1_wght400_GRAD0_opsz48.svg";
+import locationIcon from "../assets/pin_drop_FILL1_wght400_GRAD0_opsz48.svg";
 import propTypes from "prop-types";
-import { useState } from "react";
+import { useEffect } from "react";
 
-const Filter = ({ setSelected }) => {
-  const [locationVisibility, setLocationVisibilty] = useState(true);
-  const [guestsVisibility, setguestsVisibilty] = useState(false);
+const Filter = ({
+  setSelected,
+  locationVisibility,
+  setLocationVisibility,
+  guestsVisibility,
+  setGuestsVisibility,
+  location,
+  setLocation,
+  guests,
+  setGuests,
+  adults,
+  setAdults,
+  children,
+  setChildren,
+}) => {
+  useEffect(() => {
+    setGuests(adults + children);
+  }, [adults, children, setGuests]);
 
   return (
     <div className="absolute bg-white w-full mt-0">
@@ -30,14 +45,15 @@ const Filter = ({ setSelected }) => {
             </label>
             <input
               type="text"
-              id="location_input"
               name="location"
               placeholder="Add location"
               className="pt-6 px-2 w-full border-2 rounded-t-lg sm:rounded-md"
               onClick={() => {
-                setguestsVisibilty(false);
-                setLocationVisibilty(true);
+                setGuestsVisibility(false);
+                setLocationVisibility(true);
               }}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </div>
           <div className="guests-input-div grow">
@@ -48,15 +64,16 @@ const Filter = ({ setSelected }) => {
               GUESTS
             </label>
             <input
-              type="text"
-              id="guests_input"
+              type="number"
               name="guests"
               placeholder="Add guests"
               className="pt-6 px-2 w-full border-2 rounded-b-lg sm:rounded-md"
               onClick={() => {
-                setguestsVisibilty(true);
-                setLocationVisibilty(false);
+                setGuestsVisibility(true);
+                setLocationVisibility(false);
               }}
+              value={guests}
+              onChange={(e) => setGuests(e.target.value)}
             />
           </div>
         </div>
@@ -64,20 +81,40 @@ const Filter = ({ setSelected }) => {
         {locationVisibility && (
           <div className="location-div flex flex-col gap-1 pt-30 mb-12">
             <div className="flex ">
-              <img src={location} alt="location icon" />
-              <p className="cursor-pointer">Helsinki, Finland</p>
+              <img src={locationIcon} alt="location icon" />
+              <p
+                className="cursor-pointer"
+                onClick={(e) => setLocation(e.target.innerText)}
+              >
+                Helsinki, Finland
+              </p>
             </div>
             <div className="flex ">
-              <img src={location} alt="location" />
-              <p className="cursor-pointer">Torku, Finland</p>
+              <img src={locationIcon} alt="locationIcon" />
+              <p
+                className="cursor-pointer"
+                onClick={(e) => setLocation(e.target.innerText)}
+              >
+                Turku, Finland
+              </p>
             </div>
             <div className="flex ">
-              <img src={location} alt="location" />
-              <p className="cursor-pointer">Oulu, Finland</p>
+              <img src={locationIcon} alt="locationIcon" />
+              <p
+                className="cursor-pointer"
+                onClick={(e) => setLocation(e.target.innerText)}
+              >
+                Oulu, Finland
+              </p>
             </div>
             <div className="flex ">
-              <img src={location} alt="location" />
-              <p className="cursor-pointer">Vaasa, Finland</p>
+              <img src={locationIcon} alt="locationIcon" />
+              <p
+                className="cursor-pointer"
+                onClick={(e) => setLocation(e.target.innerText)}
+              >
+                Vaasa, Finland
+              </p>
             </div>
           </div>
         )}
@@ -88,11 +125,17 @@ const Filter = ({ setSelected }) => {
               <p>Adults</p>
               <p className="p-none m-none">Ages 13 or above</p>
               <div className="adult-counter flex justify-between w-20 mt-3 mb-10">
-                <button className="border border-black px-2 text-xl rounded-md">
+                <button
+                  className="border border-black px-2 text-xl rounded-md"
+                  onClick={() => setAdults(adults - 1)}
+                >
                   -
                 </button>
-                <span>0</span>
-                <button className="border border-black px-2 text-xl rounded-md">
+                <span>{adults}</span>
+                <button
+                  className="border border-black px-2 text-xl rounded-md"
+                  onClick={() => setAdults(adults + 1)}
+                >
                   +
                 </button>
               </div>
@@ -101,11 +144,21 @@ const Filter = ({ setSelected }) => {
               <p>Children</p>
               <p>Ages 2-12</p>
               <div className="children-counter flex justify-between w-20 mt-3 mb-10">
-                <button className="border border-black px-2 text-xl rounded-md">
+                <button
+                  className="border border-black px-2 text-xl rounded-md"
+                  onClick={() => {
+                    setChildren(children - 1);
+                  }}
+                >
                   -
                 </button>
-                <p>0</p>
-                <button className="border border-black px-2 text-xl rounded-md">
+                <p>{children}</p>
+                <button
+                  className="border border-black px-2 text-xl rounded-md"
+                  onClick={() => {
+                    setChildren(children + 1);
+                  }}
+                >
                   +
                 </button>
               </div>
@@ -127,6 +180,18 @@ const Filter = ({ setSelected }) => {
 
 Filter.propTypes = {
   setSelected: propTypes.func,
+  locationVisibility: propTypes.bool,
+  setLocationVisibility: propTypes.func,
+  guestsVisibility: propTypes.bool,
+  setGuestsVisibility: propTypes.func,
+  location: propTypes.string,
+  guests: propTypes.number,
+  setLocation: propTypes.func,
+  setGuests: propTypes.func,
+  adults: propTypes.number,
+  children: propTypes.number,
+  setAdults: propTypes.func,
+  setChildren: propTypes.func,
 };
 
 export default Filter;
