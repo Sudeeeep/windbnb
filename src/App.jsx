@@ -4,7 +4,6 @@ import Stays from "./components/Stays";
 import Footer from "./components/Footer";
 import { useState } from "react";
 import Filter from "./components/Filter";
-import "./app.css";
 
 function App() {
   const [selected, setSelected] = useState(false);
